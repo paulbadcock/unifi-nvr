@@ -1,5 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER paul@bad.co.ck
+ENV UNIFI_VER 3.8.5
 
 # Install Pre-reqs
 RUN apt-get update && apt-get install -y \
@@ -12,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 ADD start_nvr.sh /
 
 # Install NVR
-CMD wget -q -O unifi-video.deb https://dl.ubnt.com/firmwares/ufv/v3.8.3/unifi-video.Ubuntu16.04_amd64.v3.8.3.deb
+CMD wget -q -O unifi-video.deb https://dl.ubnt.com/firmwares/ufv/v${UNIFI_VER}/unifi-video.Ubuntu16.04_amd64.v${UNIFI_VER}.deb
 CMD dpkg -i unifi-video.deb
 CMD apt-get -f install -y
 
