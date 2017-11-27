@@ -1,18 +1,26 @@
 FROM ubuntu:16.04
-MAINTAINER dwtaylornz@gmail.com
+MAINTAINER paul@bad.co.ck
 
 # Install Pre-reqs
 RUN apt-get update && apt-get install -y \
   wget \
   apt-utils \ 
-  openjdk-8-jre-headless
+  openjdk-8-jre-headless \
+  && rm -rf /var/lib/apt/lists/*
 
 # Add NVR Start-up
 ADD start_nvr.sh /
 
 # Install NVR
-ADD install_nvr.sh /
-RUN bash /install_nvr.sh
+CMD wget -q -O unifi-video.deb https://dl.ubnt.com/firmwares/ufv/v3.8.3/unifi-video.Ubuntu16.04_amd64.v3.8.3.deb
+CMD dpkg -i unifi-video.deb
+CMD apt-get -f install -y
+
+# set start_nvr.sh executable 
+CMD chmod +x /start_nvr.sh
+
+#clean up
+CMD rm unifi-video.deb
 
 # Volumes
 VOLUME /var/lib/unifi-video  
