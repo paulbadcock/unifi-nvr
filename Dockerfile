@@ -13,15 +13,13 @@ RUN apt-get update && apt-get install -y \
 ADD start_nvr.sh /
 
 # Install NVR
-CMD wget -q -O unifi-video.deb https://dl.ubnt.com/firmwares/ufv/v${UNIFI_VER}/unifi-video.Ubuntu16.04_amd64.v${UNIFI_VER}.deb
-CMD dpkg -i unifi-video.deb
-CMD apt-get -f install -y
+RUN wget -q -O unifi-video.deb https://dl.ubnt.com/firmwares/ufv/v${UNIFI_VER}/unifi-video.Ubuntu16.04_amd64.v${UNIFI_VER}.deb && \
+  apt-get update && apt-get install -y ./unifi-video.deb \
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -f unifi-video.deb
 
 # set start_nvr.sh executable 
 CMD chmod +x /start_nvr.sh
-
-#clean up
-CMD rm unifi-video.deb
 
 # Volumes
 VOLUME /var/lib/unifi-video  
