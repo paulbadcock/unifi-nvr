@@ -19,7 +19,7 @@ RUN wget -q -O unifi-video.deb https://dl.ubnt.com/firmwares/ufv/v${UNIFI_VER}/u
   && rm -f unifi-video.deb
 
 # set start_nvr.sh executable 
-CMD chmod +x /start_nvr.sh
+RUN chmod +x /start_nvr.sh
 
 # Volumes
 VOLUME /var/lib/unifi-video  
